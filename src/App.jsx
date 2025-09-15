@@ -1,7 +1,50 @@
+import { useState } from "react"
+
+const BRAIN = [
+  {
+    name: 'normal',
+    sentence: '',
+    bgColor: 'bg-green-50',
+    color: 'text-green-500'
+  },
+  {
+    name: 'tumor',
+    sentence: '',
+    bgColor: 'bg-red-50',
+    color: 'text-red-500'
+  },
+  {
+    name: 'alzheimer',
+    sentence: '',
+    bgColor: 'bg-violet-50',
+    color: 'text-violet-500'
+  },
+  {
+    name: 'Intracranial Hemorrhage',
+    sentence: '',
+    bgColor: 'bg-orange-50',
+    color: 'text-orange-500'
+  },
+  {
+    name: 'something',
+    sentence: '',
+    bgColor: 'bg-green-50',
+    color: 'text-green-500'
+  }
+]
+
 function App() {
+  const [img, setImg] = useState({
+    status: false,
+    file: {}
+  })
 
   const handleAnalysis = () => {}
   const handleImageChange = () => {}
+  const handleImageReset = () => {}
+
+  console.log(`bg-${BRAIN[0].color}-100`);
+  
 
   return (
     <div className="bg-blue-50 min-h-screen px-10 py-10">
@@ -11,12 +54,13 @@ function App() {
       </div>
       <p className="text-center text-lg mt-5">Upload gambar scan X-ray otak untuk analisis otomatis</p>
       <div className="grid grid-cols-2 max-w-[1000px] mx-auto mt-15 gap-6">
-        <form onSubmit={handleAnalysis} className="bg-white p-4 rounded space-y-4" encType="multipart/form-data">
+        <form onSubmit={handleAnalysis} className="bg-white p-4 rounded space-y-10" encType="multipart/form-data">
           <div className="flex items-center gap-3">
             <img src="/upload.png" alt="upload" className="w-5 h-5" />
             <h2 className="font-semibold">Upload X-Ray Otak</h2>
           </div>
-          <div className="h-[250px] flex flex-col justify-center items-center border-[2px] border-black/20 border-dashed w-full relative py-6 px-3 rounded-xl hover:border-blue-500 transition-all">
+          <div 
+          className="img-box h-[250px] flex flex-col justify-center items-center border-[2px] border-black/20 border-dashed w-full relative py-6 px-3 rounded-xl hover:border-blue-500 transition duration-400">
             <label htmlFor="upload" className="absolute w-full h-full cursor-pointer">
               <input className="hidden" type="file" accept="image/*" id="upload" onChange={handleImageChange} />
             </label>
@@ -25,7 +69,7 @@ function App() {
             <span className="text-black/40 text-xs">Format: JPG, PNG, JPEG (Max 5MB)</span>
           </div>
         </form>
-        <div className="bg-white p-4 rounded">
+        <div className="bg-white p-4 rounded space-y-10">
           <div className="flex items-center gap-3">
             <img src="/thinking.png" alt="brain" className="w-5 h-5" />
             <h2 className="font-semibold">Hasil Analisis</h2>
@@ -37,8 +81,15 @@ function App() {
         </div>
         <div className="bg-white p-4 rounded col-span-2">
           <h2 className="font-semibold">Tentang Sistem Analisis</h2>
-          <div className="">
-
+          <div className="flex justify-between gap-5">
+            {
+              BRAIN.map((b) => (
+                <div className={`${b.bgColor} p-5 grow rounded`}>
+                  <h3 className={`${b.color} capitalize`}>{b.name}</h3>
+                  <p>{b.sentence}</p>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>
